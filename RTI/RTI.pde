@@ -1,7 +1,27 @@
-
-
+int numberOfNodes;
+int maxWalkingSpeed;
+Node[] atGoogle;
 void setup(){
+  size(7*161, 700);
+  numberOfNodes = 30;
+  maxWalkingSpeed = 20; //kilometers per hour
+  atGoogle = new Node[numberOfNodes];
   
+  for(int nodeIndex = 0; nodeIndex < atGoogle.length; nodeIndex++){
+    //Starting positions
+    int xCoordinateOfNode = (int)random(0, displayWidth);
+    int yCoordinateOfNode = (int)random(0, displayHeight);
+    
+    //Walking Speed
+    int xWalkingSpeedOfNode = (int)random(-1 * maxWalkingSpeed, maxWalkingSpeed);
+    int yWalkingSpeedOfNode = (int)random(-1 * maxWalkingSpeed, maxWalkingSpeed);
+    
+    //Level of Comfort
+    int comfortLevelOfNode = (int)random(0, 100);
+    
+    //Create the node
+    atGoogle[nodeIndex] = new Node(xCoordinateOfNode, yCoordinateOfNode, xWalkingSpeedOfNode, yWalkingSpeedOfNode, comfortLevelOfNode);
+  }
 }
 
 void draw(){
