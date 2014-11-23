@@ -24,8 +24,16 @@ void setup(){
   }
 }
 
+void applyMoveAndDraw(){
+  for (Node node: atGoogle){
+    node.move();
+    node.draw();
+  }
+}
+
 void draw(){
-  
+  background(0);
+  applyMoveAndDraw();
 }
 
 public class Node extends Object{
