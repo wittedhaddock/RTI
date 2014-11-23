@@ -4,7 +4,7 @@ Node[] atGoogle;
 void setup(){
   size(7*161, 700);
   numberOfNodes = 30;
-  maxWalkingSpeed = 20; //kilometers per hour
+  maxWalkingSpeed = 4; //kilometers per hour
   atGoogle = new Node[numberOfNodes];
   
   for(int nodeIndex = 0; nodeIndex < atGoogle.length; nodeIndex++){
@@ -24,6 +24,24 @@ void setup(){
   }
 }
 
+void draw(){
+  background(100);
+  applyMoveAndDraw();
+  allowConnectionsAndInteraction();
+}
+
+void allowConnectionsAndInteraction(){
+  for (Node outerNode: atGoogle){
+    for (Node innerNode: atGoogle){
+      if (sqrt(pow(outerNode.pX - innerNode.pX, 2) + pow(outerNode.pY - innerNode.pY, 2)) < outerNode.levelOfComfort() + innerNode.levelOfComfort()){ 
+        //Make the connection
+        stroke(255);
+        line(outerNode.pX, outerNode.pY, innerNode.pX, innerNode.pY);
+      }   
+    }
+  }
+}
+
 void applyMoveAndDraw(){
   for (Node node: atGoogle){
     node.move();
@@ -31,17 +49,14 @@ void applyMoveAndDraw(){
   }
 }
 
-void draw(){
-  background(0);
-  applyMoveAndDraw();
-}
+
 
 public class Node extends Object{
-  int pX;
-  int pY;
-  int vX;
-  int vY;
-  int radius;
+  public int pX;
+  public int pY;
+  public int vX;
+  public int vY;
+  public int radius;
   
   public Node(int xp, int yp, int xv, int yv, int rad){
     pX = xp;
@@ -59,6 +74,10 @@ public class Node extends Object{
   public void move(){
     this.pX += this.vX;
     this.pY += this.vY;
+  }
+  
+  public int levelOfComfort(){
+    return this.radius;
   }
   
 }
