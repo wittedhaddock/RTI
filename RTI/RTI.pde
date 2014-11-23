@@ -3,7 +3,7 @@ int maxWalkingSpeed;
 Node[] atGoogle;
 void setup(){
   size(7*161, 700);
-  numberOfNodes = 200;
+  numberOfNodes = 400;
   maxWalkingSpeed = 3; //kilometers per hour
   atGoogle = new Node[numberOfNodes];
   
@@ -17,7 +17,7 @@ void setup(){
     int yWalkingSpeedOfNode = (int)random(-1 * maxWalkingSpeed, maxWalkingSpeed);
     
     //Level of Comfort
-    int comfortLevelOfNode = (int)random(0, 100);
+    int comfortLevelOfNode = (int)random(0, 200);
     
     //Create the node
     atGoogle[nodeIndex] = new Node(xCoordinateOfNode, yCoordinateOfNode, xWalkingSpeedOfNode, yWalkingSpeedOfNode, comfortLevelOfNode);
@@ -83,6 +83,10 @@ public class Node extends Object{
   public void draw(){
     fill(0, 30, 200, 100);
     ellipse(this.pX, this.pY, radius, radius);
+    fill(200, 30, 100);
+    stroke(200, 30, 100);
+    rect(this.pX - 2, this.pY - 2, 4, 4);
+    stroke(255);
   }
   
   public void move(){
@@ -90,8 +94,8 @@ public class Node extends Object{
     this.pY += this.vY;
   }
   
-  public int levelOfComfort(){
-    return this.radius;
+  public float levelOfComfort(){
+    return this.radius/2.0;
   }
   
 }
