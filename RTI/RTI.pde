@@ -23,4 +23,14 @@ public class Node extends Object{
     radius = rad;
   }
   
+  public void draw(){
+    fill(0, 30, 200, 100);
+    ellipse(this.pX, this.pY, radius, radius);
+  }
+  
+  public void move(){
+    this.pX += this.vX;
+    this.pY += this.vY;
+  }
+  
 }
