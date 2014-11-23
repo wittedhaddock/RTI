@@ -3,14 +3,14 @@ int maxWalkingSpeed;
 Node[] atGoogle;
 void setup(){
   size(7*161, 700);
-  numberOfNodes = 30;
-  maxWalkingSpeed = 4; //kilometers per hour
+  numberOfNodes = 200;
+  maxWalkingSpeed = 3; //kilometers per hour
   atGoogle = new Node[numberOfNodes];
   
   for(int nodeIndex = 0; nodeIndex < atGoogle.length; nodeIndex++){
     //Starting positions
-    int xCoordinateOfNode = (int)random(0, displayWidth);
-    int yCoordinateOfNode = (int)random(0, displayHeight);
+    int xCoordinateOfNode = (int)random(displayWidth * -2, displayWidth * 2);
+    int yCoordinateOfNode = (int)random(displayHeight * -2, displayHeight * 2);
     
     //Walking Speed
     int xWalkingSpeedOfNode = (int)random(-1 * maxWalkingSpeed, maxWalkingSpeed);
@@ -28,6 +28,7 @@ void draw(){
   background(100);
   applyMoveAndDraw();
   allowConnectionsAndInteraction();
+  extrapolateScene();
 }
 
 void allowConnectionsAndInteraction(){
@@ -38,6 +39,19 @@ void allowConnectionsAndInteraction(){
         stroke(255);
         line(outerNode.pX, outerNode.pY, innerNode.pX, innerNode.pY);
       }   
+    }
+  }
+}
+
+void extrapolateScene(){
+  for (Node node: atGoogle){
+    if (node.pX > displayWidth * 2 || node.pX < displayWidth * -2 || node.pY > displayHeight * 2 || node.pY < displayHeight * -2){
+      
+      node.pX = node.pX > displayWidth * 2 ? displayWidth * -2 : node.pX;
+      node.pX = node.pX < displayWidth * -2 ? displayWidth * 2 : node.pX;
+      
+      node.pY = node.pY > displayHeight * 2 ? displayHeight * -2 : node.pY;
+      node.pY = node.pY < displayHeight * -2 ? displayHeight * 2 : node.pY;
     }
   }
 }
